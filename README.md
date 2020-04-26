@@ -38,3 +38,27 @@ lovelace ui:
 ```
 
 The field `entity` is required. The `unit_of_measurement` of this entity must be `W` or `kW`.
+
+## The Sensor
+
+```
+  - platform: template
+    sensors:
+      total_power_consumption:
+        friendly_name: "Total Power Consumption"
+        unit_of_measurement: W
+        value_template: "{{ (states('sensor.dishwasher_power') | float) + (states('sensor.dryer_power') | float) + (states('sensor.fridge_power') | float) + (states('sensor.washing_power') | float) }}"
+        entity_id:
+            - sensor.dishwasher_power 
+            - sensor.dryer_power
+            - sensor.fridge_power
+            - sensor.washing_power
+        attribute_templates:
+          Dishwasher: "{{states('sensor.dishwasher_power')}}"
+          Dryer: "{{states('sensor.dryer_power')}}"
+          Fridge: "{{states('sensor.fridge_power')}}"
+          Washing: "{{states('sensor.washing_power')}}"
+```
+ just added the 
+ 
+ attribute_templates: so we know what sensors made up this sensor
