@@ -1,0 +1,18 @@
+```
+  - platform: template
+    sensors:
+      total_power_consumption:
+        friendly_name: "Total Power Consumption"
+        unit_of_measurement: W
+        value_template: "{{ (states('sensor.dishwasher_power') | float) + (states('sensor.dryer_power') | float) + (states('sensor.fridge_power') | float) + (states('sensor.washing_power') | float) }}"
+        entity_id:
+            - sensor.dishwasher_power 
+            - sensor.dryer_power
+            - sensor.fridge_power
+            - sensor.washing_power
+        attribute_templates:
+          Dishwasher: "{{states('sensor.dishwasher_power')}}"
+          Dryer: "{{states('sensor.dryer_power')}}"
+          Fridge: "{{states('sensor.fridge_power')}}"
+          Washing: "{{states('sensor.washing_power')}}"
+```
